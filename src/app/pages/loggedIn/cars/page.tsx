@@ -79,7 +79,13 @@ const allCars = () => {
           );
         })}
       </ul>
-      <button onClick={() => {router.push("/pages/loggedIn/addToCluster")}}>+</button>
+      <div className="flex justify-center">
+        <button
+          onClick={() => { router.push("/pages/loggedIn/addToCluster") }}
+          className="m-2 py-1 px-3 bg-blue-400 text-white text-3xl rounded w-1/8 ">
+          +
+        </button>
+      </div>
     </div>
   );
 };

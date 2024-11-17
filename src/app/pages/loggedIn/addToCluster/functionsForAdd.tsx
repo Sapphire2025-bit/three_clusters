@@ -1,7 +1,5 @@
 "use client"
-import { title } from "process";
 import React from "react";
-import {useRouter} from 'next/navigation'
 
 const centerDiv = "flex items-center justify-center";
 export const inpStyle = "m-2 border-gray-300 border-2 rounded";

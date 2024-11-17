@@ -29,26 +29,26 @@ const allBooks = () => {
   if (isLoading) return <p>Loading...</p>;
   if (error instanceof Error) return <p>Error: {error.message}</p>;
 
-  const showMore = (id:string) => {
+  const showMore = (id: string) => {
     router.push(`/pages/loggedIn/books/${id}`);
   };
 
-  const remove = async (id:string) => {
+  const remove = async (id: string) => {
     console.log("delete tryout")
-    try{
+    try {
       const response = await fetch(`/api/books?id={id}`, {
         method: "DELETE",
         headers: {
           "content-Type": "application/json",
         },
       });
-      if(!response.ok){
+      if (!response.ok) {
         throw new Error("failed to delete the book");
       }
       await response.json();
       refetch();
     }
-    catch(error){
+    catch (error) {
       console.error("Error deleting book: ", error);
     }
   };
@@ -80,7 +80,13 @@ const allBooks = () => {
           );
         })}
       </ul>
-      <button onClick={() => {router.push("/pages/loggedIn/addToCluster")}}>+</button>
+      <div className="flex justify-center">
+        <button
+          onClick={() => { router.push("/pages/loggedIn/addToCluster") }}
+          className="m-2 py-1 px-3 bg-blue-400 text-white text-3xl rounded w-1/8 ">
+          +
+        </button>
+      </div>
     </div>
   );
 };
