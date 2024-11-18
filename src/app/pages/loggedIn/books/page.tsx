@@ -54,21 +54,20 @@ const allBooks = () => {
   return (
     <div>
       <h1>All Books</h1>
-      <ul>
+      <div className="grid grid-cols-3 gap-4">
         {books?.map((book, index) => {
-          // Define the array of button objects for each animal
           const cardActions: CardActionsProps = {
             allButtons: [
             {
               buttonText: "Show More ->",
               buttonFunc: () => showMore(book._id),
-              buttonColor: "bg-blue-400",
+              buttonColor: "bg-blue-400"
             },
             {
               buttonText: "Delete",
               buttonFunc: () => remove(book._id),
-              buttonColor: "bg-red-400",
-            },
+              buttonColor: "bg-red-400"
+            }
           ]};
 
           const props = {
@@ -78,12 +77,12 @@ const allBooks = () => {
           };
 
           return (
-            <li key={index}>
+            <div key={index}>
               <Card clusterInfo={props} allButtons={cardActions} />
-            </li>
+            </div>
           );
         })}
-      </ul>
+      </div>
       <div className="flex justify-center">
         <button
           onClick={() => { router.push("/pages/loggedIn/addToCluster/books") }}

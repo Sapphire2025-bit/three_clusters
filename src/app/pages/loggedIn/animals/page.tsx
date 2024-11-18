@@ -54,7 +54,7 @@ const AnimalsPage = () => {
   return (
     <div>
       <h1>All Animals</h1>
-      <ul>
+      <div className="grid grid-cols-3 gap-4">
         {animals?.map((animal, index) => {
           // Define the array of button objects for each animal
           const cardActions: CardActionsProps = {
@@ -79,14 +79,12 @@ const AnimalsPage = () => {
           };
 
           return (
-            <li key={index}>
+            <div key={index}>
               <Card clusterInfo={props} allButtons={cardActions} />
-              {/* <ClusterInfo {...props} />
-              <CardActions allButtons={allButtons} /> */}
-            </li>
+            </div>
           );
         })}
-      </ul>
+      </div>
       <div className="flex justify-center">
         <button
           onClick={() => { router.push("/pages/loggedIn/addToCluster/animals") }}

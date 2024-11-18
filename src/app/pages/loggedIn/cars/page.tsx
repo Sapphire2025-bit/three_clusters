@@ -2,10 +2,9 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import ICar from "@/app/types/carsForSchema";
-import ClusterInfo from "@/app/components/ClusterInfo";
-import CardActions from "@/app/components/CardActions";
 import { useRouter } from "next/navigation";
-import ButtonFunctionProps from "@/app/types/buttonFunctionProps";
+import Card from "@/app/components/Card";
+import CardActionsProps from "@/app/types/cardActionProps";
 
 // Fetching function to get all books
 const fetchCars = async (): Promise<ICar[]> => {
@@ -55,9 +54,10 @@ const allCars = () => {
   return (
     <div>
       <h1>All Cars</h1>
-      <ul>
+      <div className="grid grid-cols-3 gap-4">
         {cars?.map((car, index) => {
-          const allButtons: ButtonFunctionProps[] = [
+          const cardActions: CardActionsProps = {
+            allButtons: [
             {
               buttonText: "Show More ->",
               buttonFunc: () => showMore(car._id),
@@ -68,16 +68,22 @@ const allCars = () => {
               buttonFunc: () => remove(car._id),
               buttonColor: "bg-red-400"
             }
-          ];
+          ]};
+
+          const props = {
+            company: car.company,
+            color: car.color,
+            year: car.year,
+            price: car.price
+          };
 
           return (
-            <li key={index}>
-              <ClusterInfo company={car.company} color={car.color} year={car.year} price={car.price}/>
-              <CardActions allButtons={allButtons} />
-            </li>
+            <div key={index}>
+              <Card clusterInfo={props} allButtons={cardActions} />
+            </div>
           );
         })}
-      </ul>
+      </div>
       <div className="flex justify-center">
         <button
           onClick={() => { router.push("/pages/loggedIn/addToCluster/cars") }}

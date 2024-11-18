@@ -9,7 +9,7 @@ export interface ClusterInfoProps {
 const ClusterInfo = (props: ClusterInfoProps) => {
 
     return (
-        <div className="bg-gray-300 text-center">
+        <div className="text-center">
             {Object.keys(props).map(key => (
                 <div key={key}>
                     <strong>{key}:</strong>
