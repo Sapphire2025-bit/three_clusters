@@ -12,7 +12,6 @@ export async function GET(request: NextRequest) {
 
         if (id) {
             // Fetch animal by ID
-            console.log(`get animal by id: ${id}`);
             const animal = await Animal.findById(id);
             if (!animal) {
                 return NextResponse.json("Animal not found");
@@ -62,9 +61,7 @@ export async function PUT(request: NextRequest) {
 
 //DELETE an animal
 export async function DELETE(request: NextRequest) {
-    console.log("reached the backend delete")
     const id = request.nextUrl.searchParams.get('id');
-    console.log("id: " + id);
     if (!id) {
         return NextResponse.json("ID is required for deletion");
     }

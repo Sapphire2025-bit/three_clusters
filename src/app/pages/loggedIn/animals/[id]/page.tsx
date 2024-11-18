@@ -37,7 +37,6 @@ const AnimalPage = () => {
 
   useEffect(() => {
     if (animal) {
-      console.log("use effect");
       setName(animal.name);
       setType(animal.type);
       setAge(animal.age);
@@ -52,7 +51,6 @@ const AnimalPage = () => {
   };
 
   const resetChanges = async () => {
-    console.log("reset changes");
     if (animal) {
       setName(animal.name);
       setType(animal.type);
@@ -125,6 +123,7 @@ const AnimalPage = () => {
               <strong>Age:</strong>
               <input type="number"
                 name="age"
+                step="0.25"
                 value={age}
                 onChange={(e) => setAge(e.target.value ? parseInt(e.target.value) : -1)}
                 className={inpStyle} />

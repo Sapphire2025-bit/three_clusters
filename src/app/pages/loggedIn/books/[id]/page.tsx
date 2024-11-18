@@ -36,7 +36,6 @@ const BookPage = () => {
   });
 
   const resetChanges = async () => {
-    console.log("reset changes");
     if (book) {
       setTitle(book.title);
       setAuthor(book.author);
@@ -118,9 +117,10 @@ const BookPage = () => {
                 className={inpStyle} />
             </label>
             <label>
-              <strong>Age:</strong>
+              <strong>Price:</strong>
               <input type="number"
                 name="price"
+                step="0.01"
                 value={price}
                 onChange={(e) => setPrice(e.target.value ? parseInt(e.target.value) : 0)}
                 className={inpStyle} />

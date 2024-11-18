@@ -37,7 +37,6 @@ const CarPage = () => {
   });
 
   const resetChanges = async () => {
-    console.log("reset changes");
     if (car) {
       setCompany(car.company);
       setColor(car.color);
@@ -131,6 +130,7 @@ const CarPage = () => {
               <strong>Price:</strong>
               <input type="number"
                 name="price"
+                step="0.01"
                 value={price}
                 onChange={(e) => setPrice(e.target.value ? parseInt(e.target.value) : 0)}
                 className={inpStyle} />

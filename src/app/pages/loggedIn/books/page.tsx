@@ -34,9 +34,8 @@ const allBooks = () => {
   };
 
   const remove = async (id: string) => {
-    console.log("delete tryout")
     try {
-      const response = await fetch(`/api/books?id={id}`, {
+      const response = await fetch(`/api/books?id=${id}`, {
         method: "DELETE",
         headers: {
           "content-Type": "application/json",
@@ -82,7 +81,7 @@ const allBooks = () => {
       </ul>
       <div className="flex justify-center">
         <button
-          onClick={() => { router.push("/pages/loggedIn/addToCluster") }}
+          onClick={() => { router.push("/pages/loggedIn/addToCluster/books") }}
           className="m-2 py-1 px-3 bg-blue-400 text-white text-3xl rounded w-1/8 ">
           +
         </button>
