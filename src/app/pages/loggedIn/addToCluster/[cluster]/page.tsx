@@ -14,7 +14,6 @@ const AddToCluster = () => {
 
     //post to server:
     const post = async (cluster: string, dataToAdd: any) => {
-        const router = useRouter();
         try {
             const response = await fetch(`/api/${cluster}`, {
                 method: "POST",
@@ -150,7 +149,6 @@ const AddToCluster = () => {
         <div>
             <label>
                 add a new iten to cluster:
-                {cluster}
                 <select value={currentOption} className={inpStyle} onChange={(e) => setCurrentOption(e.target.value)}>
                     <option value="cars">cars</option>
                     <option value="books">books</option>
