@@ -2,10 +2,9 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import IAnimal from "@/app/types/animalsForSchema";
-import ClusterInfo from "@/app/components/ClusterInfo";
-import ButtonFunctionProps from "@/app/types/buttonFunctionProps";
-import CardActions from "@/app/components/CardActions";
 import { useRouter } from "next/navigation";
+import Card from "@/app/components/Card";
+import CardActionsProps from "@/app/types/cardActionProps";
 
 // Fetching function to get all animals
 const fetchAnimals = async (): Promise<IAnimal[]> => {
@@ -58,23 +57,32 @@ const AnimalsPage = () => {
       <ul>
         {animals?.map((animal, index) => {
           // Define the array of button objects for each animal
-          const allButtons: ButtonFunctionProps[] = [
-            {
-              buttonText: "Show More ->",
-              buttonFunc: () => showMore(animal._id),
-              buttonColor: "bg-blue-400",
-            },
-            {
-              buttonText: "Delete",
-              buttonFunc: () => remove(animal._id),
-              buttonColor: "bg-red-400",
-            },
-          ];
+          const cardActions: CardActionsProps = {
+            allButtons: [
+              {
+                buttonText: "Show More ->",
+                buttonFunc: () => showMore(animal._id),
+                buttonColor: "bg-blue-400",
+              },
+              {
+                buttonText: "Delete",
+                buttonFunc: () => remove(animal._id),
+                buttonColor: "bg-red-400",
+              },
+            ]
+          };
+
+          const props = {
+            name: animal.name,
+            type: animal.type,
+            age: animal.age
+          };
 
           return (
             <li key={index}>
-              <ClusterInfo name={animal.name} type={animal.type} age={animal.age} />
-              <CardActions allButtons={allButtons} />
+              <Card clusterInfo={props} allButtons={cardActions} />
+              {/* <ClusterInfo {...props} />
+              <CardActions allButtons={allButtons} /> */}
             </li>
           );
         })}

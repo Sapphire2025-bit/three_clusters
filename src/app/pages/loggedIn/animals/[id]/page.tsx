@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import IAnimal from "@/app/types/animalsForSchema";
-import ClusterInfo from "@/app/components/ClusterInfo";
 import CardActions from "@/app/components/CardActions";
 import ButtonFunctionProps from "@/app/types/buttonFunctionProps";
+import Card from "@/app/components/Card";
+import CardActionsProps from "@/app/types/cardActionProps";
 
 // Fetching function to get all animals
 const fetchAnimalById = async (id: string): Promise<IAnimal> => {
@@ -35,12 +36,16 @@ const AnimalPage = () => {
     enabled: !!id,
   });
 
-  useEffect(() => {
-    if (animal) {
+  const resetChanges = async () => {
+    if (animal){
       setName(animal.name);
       setType(animal.type);
       setAge(animal.age);
     }
+  };
+
+  useEffect(() => {
+    resetChanges();
   }, [animal]);
 
   if (isLoading) return <p>Loading...</p>;
@@ -48,14 +53,6 @@ const AnimalPage = () => {
 
   const goBack = () => {
     router.push(`/pages/loggedIn/animals`);
-  };
-
-  const resetChanges = async () => {
-    if (animal) {
-      setName(animal.name);
-      setType(animal.type);
-      setAge(animal.age);
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -91,13 +88,13 @@ const AnimalPage = () => {
         {
           buttonText: "<- Go Back",
           buttonFunc: goBack,
-          buttonColor: "bg-blue-400",
+          buttonColor: "bg-blue-400"
         },
         {
           buttonText: "Reset",
           buttonFunc: resetChanges,
-          buttonColor: "bg-purple-400",
-        },
+          buttonColor: "bg-purple-400"
+        }
       ];
       return (
         <div>
@@ -136,23 +133,28 @@ const AnimalPage = () => {
       );
 
     } else {
-      const allButtons: ButtonFunctionProps[] = [
+      const cardActions: CardActionsProps = {
+        allButtons: [
         {
           buttonText: "<- Go Back",
           buttonFunc: goBack,
-          buttonColor: "bg-blue-400",
+          buttonColor: "bg-blue-400"
         },
         {
           buttonText: "Update",
           buttonFunc: () => setIsEditing(true),
-          buttonColor: "bg-yellow-400",
-        },
-      ];
+          buttonColor: "bg-yellow-400"
+        }
+      ]};
+      const props = {
+        name: animal.name,
+        type: animal.type,
+        age: animal.age
+      };
       return (
         <div>
           <h1>Animal:</h1>
-          {animal && <ClusterInfo name={animal.name} type={animal.type} age={animal.age} />}
-          <CardActions allButtons={allButtons}/>
+          {animal && <Card clusterInfo={props} allButtons={cardActions}/>}
         </div>
       );
     }

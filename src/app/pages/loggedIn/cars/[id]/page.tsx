@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import ICar from "@/app/types/carsForSchema";
-import ClusterInfo from "@/app/components/ClusterInfo";
 import CardActions from "@/app/components/CardActions";
 import ButtonFunctionProps from "@/app/types/buttonFunctionProps";
+import Card from "@/app/components/Card";
+import CardActionsProps from "@/app/types/cardActionProps";
 
 // Fetching function to get all animals
 const fetchCarById = async (id: string): Promise<ICar> => {
@@ -58,7 +59,6 @@ const CarPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
     const updatedData = { company, color, year, price };
 
     try {
@@ -83,7 +83,7 @@ const CarPage = () => {
   };
 
   //render info when not editing, inputs when editing
-  const renderInfoOptions = (book: ICar) => {
+  const renderInfoOptions = (car: ICar) => {
     if (isEditing) {
       const inpStyle = "m-2 border-gray-300 border-2 rounded";
       const allButtons: ButtonFunctionProps[] = [
@@ -143,7 +143,8 @@ const CarPage = () => {
       );
 
     } else {
-      const allButtons:ButtonFunctionProps[] = [
+      const cardActions: CardActionsProps = {
+        allButtons: [
         {
           buttonText: "<- Go Back",
             buttonFunc: goBack,
@@ -152,14 +153,19 @@ const CarPage = () => {
         {
           buttonText: "Update",
             buttonFunc: () => setIsEditing(true),
-            buttonColor: "bg-yellow-400",
+            buttonColor: "bg-yellow-400"
         }
-      ];
+      ]};
+      const props = {
+        company: car.company,
+        color: car.color,
+        year: car.year,
+        price: car.price
+      };
       return (
         <div>
           <h1>Car:</h1>
-          {car && <ClusterInfo company={car.company} color={car.color} year={car.year} price={car.price} />}
-          <CardActions allButtons={allButtons}/>
+          {car && <Card clusterInfo={props} allButtons={cardActions}/>}
         </div>
       );
     }

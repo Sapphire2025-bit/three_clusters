@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import IBook from "@/app/types/booksForSchema";
-import ClusterInfo from "@/app/components/ClusterInfo";
 import CardActions from "@/app/components/CardActions";
 import ButtonFunctionProps from "@/app/types/buttonFunctionProps";
+import CardActionsProps from "@/app/types/cardActionProps";
+import Card from "@/app/components/Card";
 
 // Fetching function to get all animals
 const fetchBookById = async (id: string): Promise<IBook> => {
@@ -56,7 +57,6 @@ const BookPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
     const updatedData = { title, author, price };
 
     try {
@@ -88,13 +88,13 @@ const BookPage = () => {
         {
           buttonText: "<- Go Back",
           buttonFunc: goBack,
-          buttonColor: "bg-blue-400",
+          buttonColor: "bg-blue-400"
         },
         {
           buttonText: "Reset",
           buttonFunc: resetChanges,
-          buttonColor: "bg-purple-400",
-        },
+          buttonColor: "bg-purple-400"
+        }
       ];
       return (
         <div>
@@ -133,23 +133,28 @@ const BookPage = () => {
       );
 
     } else {
-      const allButtons: ButtonFunctionProps[] = [
+      const cardActions: CardActionsProps = {
+        allButtons: [
         {
           buttonText: "<- Go Back",
           buttonFunc: goBack,
-          buttonColor: "bg-blue-400",
+          buttonColor: "bg-blue-400"
         },
         {
           buttonText: "Update",
           buttonFunc: () => setIsEditing(true),
-          buttonColor: "bg-yellow-400",
-        },
-      ];
+          buttonColor: "bg-yellow-400"
+        }
+      ]};
+      const props = {
+        title: book.title,
+        author: book.author,
+        price: book.price
+      };
       return (
         <div>
           <h1>Book:</h1>
-          {book && <ClusterInfo title={book.title} author={book.author} price={book.price} />}
-          <CardActions allButtons={allButtons}/>
+          {book && <Card clusterInfo={props} allButtons={cardActions}/>}
         </div>
       );
     }

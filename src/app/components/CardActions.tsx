@@ -1,5 +1,4 @@
 import React from 'react'
-import ButtonFunctionProps from '../types/buttonFunctionProps';
 import CardActionsProps from '../types/cardActionProps';
 
 const CardActions: React.FC<CardActionsProps> = ({allButtons}) => {

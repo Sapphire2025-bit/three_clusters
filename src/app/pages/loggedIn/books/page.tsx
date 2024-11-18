@@ -2,10 +2,9 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import IBook from "@/app/types/booksForSchema";
-import ClusterInfo from "@/app/components/ClusterInfo";
-import CardActions from "@/app/components/CardActions";
 import { useRouter } from "next/navigation";
-import ButtonFunctionProps from "@/app/types/buttonFunctionProps";
+import CardActionsProps from "@/app/types/cardActionProps";
+import Card from "@/app/components/Card";
 
 // Fetching function to get all books
 const fetchBooks = async (): Promise<IBook[]> => {
@@ -58,7 +57,8 @@ const allBooks = () => {
       <ul>
         {books?.map((book, index) => {
           // Define the array of button objects for each animal
-          const allButtons: ButtonFunctionProps[] = [
+          const cardActions: CardActionsProps = {
+            allButtons: [
             {
               buttonText: "Show More ->",
               buttonFunc: () => showMore(book._id),
@@ -69,12 +69,17 @@ const allBooks = () => {
               buttonFunc: () => remove(book._id),
               buttonColor: "bg-red-400",
             },
-          ];
+          ]};
+
+          const props = {
+            title: book.title,
+            author: book.author,
+            price: book.price
+          };
 
           return (
             <li key={index}>
-              <ClusterInfo title={book.title} author={book.author} price={book.price} />
-              <CardActions allButtons={allButtons} />
+              <Card clusterInfo={props} allButtons={cardActions} />
             </li>
           );
         })}

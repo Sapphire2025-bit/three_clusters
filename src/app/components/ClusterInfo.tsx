@@ -1,8 +1,8 @@
 import React from 'react';
 
-const colorDiv = "w-4 h-4 inline-block rounded-full"
+const colorDiv = "w-4 h-4 inline-block rounded"
 
-interface ClusterInfoProps {
+export interface ClusterInfoProps {
     [key: string]: string | number; // Define the structure of the object
 }
 
