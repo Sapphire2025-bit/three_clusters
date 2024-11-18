@@ -76,7 +76,7 @@ const AddToCluster = () => {
                 </label>
                 <label>
                     Color:
-                    <input type="string" name="color" className={inpStyle} />
+                    <input type="color" name="color" className={inpStyle} />
                 </label>
                 <label>
                     Year:
